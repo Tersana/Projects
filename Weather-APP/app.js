@@ -5,7 +5,7 @@ const apiKey = "ab2538ac78710e15afbdd6125d71f954";
 
 weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const city = cityInput.value;
+  const city = cityInput.value.trim();
   if (city) {
     try {
       const weatherData = await getWeatherData(city);
@@ -43,45 +43,35 @@ function displayWeatherInfo(data) {
   const weatherEmoji = document.createElement("p");
   cityDisplay.textContent = city;
   cityDisplay.classList.add("cityDisplay");
-  card.appendChild(cityDisplay);
 
-  tempDisplay.textContent = `${Math.floor(temp - 273)}°C`;
+  tempDisplay.textContent = `${Math.floor(temp - 273)}C`;
   tempDisplay.classList.add("tempDisplay");
-  card.appendChild(tempDisplay);
 
   humidityDisplay.textContent = `humidity: ${humidity}%`;
   humidityDisplay.classList.add("humidityDisplay");
-  card.appendChild(humidityDisplay);
 
   discDisplay.textContent = description;
   discDisplay.classList.add("discDisplay");
-  card.appendChild(discDisplay);
 
   weatherEmoji.textContent = getWeatherEmoji(id);
   weatherEmoji.classList.add("weatherEmoji");
-  card.appendChild(weatherEmoji);
+card.append(cityDisplay, tempDisplay, humidityDisplay, discDisplay, weatherEmoji);
 }
 
 function getWeatherEmoji(weatherId) {
   switch (true) {
     case weatherId >= 200 && weatherId < 300:
       return "⛈️";
-      break;
     case weatherId >= 300 && weatherId < 400:
       return "🌧️";
-      break;
     case weatherId >= 500 && weatherId < 600:
       return "🌧️";
-      break;
     case weatherId >= 600 && weatherId < 700:
       return "❄️";
-      break;
     case weatherId >= 700 && weatherId < 800:
       return "🌫️";
-      break;
     case weatherId === 800:
       return "☀️";
-      break;
     case weatherId > 800 && weatherId < 810:
       return "☁️";
     default:
